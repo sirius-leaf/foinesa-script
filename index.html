@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foinesa Translator</title>
+
+    <style>
+        @font-face {
+            font-family: "Foinesa";
+            src: url("Foinesa.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .use-foinesa {
+            font-family: Foinesa;
+        }
+
+        #output {
+            font-variant-ligatures: normal;
+        }
+
+        #output.no-ligatures {
+            font-variant-ligatures: none;
+        }
+
+        #character-list {
+            display: none;
+        }
+
+        #character-list.show {
+            display: block;
+        }
+
+        #character-list button {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="character-list" class="">
+        <h3>Character List:</h3>
+
+        <p>Numbers</p>
+        <button class="use-foinesa" onclick="addCharacter('1')">1</button>
+        <button class="use-foinesa" onclick="addCharacter('2')">2</button>
+        <button class="use-foinesa" onclick="addCharacter('3')">3</button>
+        <button class="use-foinesa" onclick="addCharacter('4')">4</button>
+        <button class="use-foinesa" onclick="addCharacter('5')">5</button><br />
+        <button class="use-foinesa" onclick="addCharacter('6')">6</button>
+        <button class="use-foinesa" onclick="addCharacter('7')">7</button>
+        <button class="use-foinesa" onclick="addCharacter('8')">8</button>
+        <button class="use-foinesa" onclick="addCharacter('9')">9</button>
+        <button class="use-foinesa" onclick="addCharacter('0')">0</button><br />
+
+        <p>Letters</p>
+        <button class="use-foinesa" onclick="addCharacter('a')">a</button>
+        <button class="use-foinesa" onclick="addCharacter('b')">b</button>
+        <button class="use-foinesa" onclick="addCharacter('c')">c</button>
+        <button class="use-foinesa" onclick="addCharacter('d')">d</button>
+        <button class="use-foinesa" onclick="addCharacter('e')">e</button>
+        <button class="use-foinesa" onclick="addCharacter('f')">f</button><br />
+        <button class="use-foinesa" onclick="addCharacter('g')">g</button>
+        <button class="use-foinesa" onclick="addCharacter('h')">h</button>
+        <button class="use-foinesa" onclick="addCharacter('i')">i</button>
+        <button class="use-foinesa" onclick="addCharacter('j')">j</button>
+        <button class="use-foinesa" onclick="addCharacter('k')">k</button>
+        <button class="use-foinesa" onclick="addCharacter('l')">l</button><br />
+        <button class="use-foinesa" onclick="addCharacter('m')">m</button>
+        <button class="use-foinesa" onclick="addCharacter('n')">n</button>
+        <button class="use-foinesa" onclick="addCharacter('o')">o</button>
+        <button class="use-foinesa" onclick="addCharacter('p')">p</button>
+        <button class="use-foinesa" onclick="addCharacter('q')">q</button>
+        <button class="use-foinesa" onclick="addCharacter('r')">r</button><br />
+        <button class="use-foinesa" onclick="addCharacter('s')">s</button>
+        <button class="use-foinesa" onclick="addCharacter('t')">t</button>
+        <button class="use-foinesa" onclick="addCharacter('u')">u</button>
+        <button class="use-foinesa" onclick="addCharacter('v')">v</button>
+        <button class="use-foinesa" onclick="addCharacter('w')">w</button>
+        <button class="use-foinesa" onclick="addCharacter('x')">x</button><br />
+        <button class="use-foinesa" onclick="addCharacter('y')">y</button>
+        <button class="use-foinesa" onclick="addCharacter('z')">z</button><br />
+
+        <p>Diacritic</p>
+        <button class="use-foinesa" onclick="addCharacter('a')">ra</button>
+        <button class="use-foinesa" onclick="addCharacter('i')">ri</button>
+        <button class="use-foinesa" onclick="addCharacter('u')">ru</button>
+        <button class="use-foinesa" onclick="addCharacter('e')">re</button>
+        <button class="use-foinesa" onclick="addCharacter('o')">ro</button><br />
+        <br />
+        <button onclick="addCharacter(' ')">Space</button>
+        <button onclick="deleteCharacter()">Delete</button>
+        <br /><br />
+    </div>
+    <label for="inputText"><b>Plain Text:</b></label><br />
+    <textarea id="inputText" style="font-size: 1.5rem;" oninput="toLowercase()"></textarea><br />
+    <button onclick="toggleCharacterList()">Toggle Character List</button>
+
+    <p><b>Foinesa Script:</b></p>
+    <h2 id="output" class="" style="font-family: Foinesa; font-size: 3rem; margin-top: 0; word-wrap: break-word;"></h2>
+    <button onclick="toggleLigature()">Toggle Diacritic Usage</button>
+
+    <script>
+        let input = document.getElementById("inputText");
+        let output = document.getElementById("output");
+        let characterList = document.getElementById("character-list");
+
+        function toLowercase() {
+            document.getElementById("output").textContent = input.value.toLowerCase();
+        }
+
+        function toggleLigature() {
+            output.classList.toggle("no-ligatures");
+        }
+
+        function toggleCharacterList() {
+            characterList.classList.toggle("show");
+        }
+
+        function addCharacter(character) {
+            input.value += character;
+            input.focus();
+            toLowercase();
+        }
+
+        function deleteCharacter() {
+            input.value = input.value.slice(0, -1);
+            input.focus();
+            toLowercase();
+        }
+    </script>
+</body>
+</html>
