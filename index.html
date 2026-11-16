@@ -19,11 +19,9 @@
         }
 
         #output {
-            font-variant-ligatures: normal;
-        }
+            --rem-size: 3rem;
 
-        #output.no-ligatures {
-            font-variant-ligatures: none;
+            font-size: var(--rem-size);
         }
 
         #character-list {
@@ -86,11 +84,24 @@
         <button class="use-foinesa" onclick="addCharacter('ny')">ny</button><br />
 
         <p>Diacritic</p>
-        <button class="use-foinesa" onclick="addCharacter('a')">ra</button>
-        <button class="use-foinesa" onclick="addCharacter('i')">ri</button>
-        <button class="use-foinesa" onclick="addCharacter('u')">ru</button>
-        <button class="use-foinesa" onclick="addCharacter('e')">re</button>
-        <button class="use-foinesa" onclick="addCharacter('o')">ro</button>
+        <span class="use-foinesa" style="font-size: 1rem;"><span style="font-size: 6rem;">rAUEO</span> </span>
+        <button class="use-foinesa" onclick="addCharacter('A')">rA</button>
+        <button class="use-foinesa" onclick="addCharacter('I')">rI</button>
+        <button class="use-foinesa" onclick="addCharacter('U')">rU</button>
+        <button class="use-foinesa" onclick="addCharacter('E')">rE</button>
+        <button class="use-foinesa" onclick="addCharacter('O')">rO</button><br />
+        <span class="use-foinesa" style="font-size: 1rem;"><span style="font-size: 6rem;">rA&ltU&ltE&ltO&lt</span> </span>
+        <button class="use-foinesa" onclick="addCharacter('A<')">rA&lt</button>
+        <button class="use-foinesa" onclick="addCharacter('I<')">rI&lt</button>
+        <button class="use-foinesa" onclick="addCharacter('U<')">rU&lt</button>
+        <button class="use-foinesa" onclick="addCharacter('E<')">rE&lt</button>
+        <button class="use-foinesa" onclick="addCharacter('O<')">rO&lt</button><br />
+        <span class="use-foinesa" style="font-size: 1rem;"><span style="font-size: 6rem;">rA&gtU&gtE&gtO&gt</span> </span>
+        <button class="use-foinesa" onclick="addCharacter('A>')">rA&gt</button>
+        <button class="use-foinesa" onclick="addCharacter('I>')">rI&gt</button>
+        <button class="use-foinesa" onclick="addCharacter('U>')">rU&gt</button>
+        <button class="use-foinesa" onclick="addCharacter('E>')">rE&gt</button>
+        <button class="use-foinesa" onclick="addCharacter('O>')">rO&gt</button><br />
         <button class="use-foinesa" onclick="addCharacter('|')">|</button><br />
         <br />
         <button onclick="addCharacter(' ')">Space</button>
@@ -98,24 +109,27 @@
         <br /><br />
     </div>
     <label for="inputText"><b>Plain Text:</b></label><br />
-    <textarea id="inputText" style="font-size: 1.5rem;" oninput="toLowercase()"></textarea><br />
+    <textarea id="inputText" style="font-size: 1.5rem;" oninput="copyInput()"></textarea><br />
     <button onclick="toggleCharacterList()">Toggle Character List</button>
 
     <p><b>Foinesa Script:</b></p>
-    <h2 id="output" class="" style="font-family: Foinesa; font-size: 3rem; margin-top: 0; word-wrap: break-word;"></h2>
-    <button onclick="toggleLigature()">Toggle Diacritic Usage</button>
+    <p id="output" class="" style="font-family: Foinesa; margin: 0; word-wrap: break-word;">hAlO dUnIA></p>
+    <button onclick="changeOutputFontSize(1)">Increase Font Size</button>
+    <button onclick="changeOutputFontSize(-1)">Decrease Font Size</button>
 
     <script>
         let input = document.getElementById("inputText");
         let output = document.getElementById("output");
         let characterList = document.getElementById("character-list");
 
-        function toLowercase() {
-            document.getElementById("output").textContent = input.value.toLowerCase();
-        }
+        // Font Size Setting (rem)
+        let currentSize = 3;
+        const step = 1;
+        const minsSize = 1;
+        const maxSize = 25;
 
-        function toggleLigature() {
-            output.classList.toggle("no-ligatures");
+        function copyInput() {
+            document.getElementById("output").textContent = input.value;
         }
 
         function toggleCharacterList() {
@@ -124,12 +138,20 @@
 
         function addCharacter(character) {
             input.value += character;
-            toLowercase();
+            copyInput();
         }
 
         function deleteCharacter() {
             input.value = input.value.slice(0, -1);
-            toLowercase();
+            copyInput();
+        }
+
+        function changeOutputFontSize(sizeIncrease) {
+            if ( currentSize + sizeIncrease <= maxSize && currentSize - sizeIncrease >= minsSize) {
+                currentSize += sizeIncrease;
+                output.style.setProperty('--rem-size', `${currentSize}rem`);
+            }
+
         }
     </script>
 </body>
